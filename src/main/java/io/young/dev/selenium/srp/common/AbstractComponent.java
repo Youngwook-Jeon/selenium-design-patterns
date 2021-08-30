@@ -1,4 +1,4 @@
-package io.young.dev.selenium.srp;
+package io.young.dev.selenium.srp.common;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;

@@ -1,5 +1,7 @@
-package io.young.dev.selenium.srp;
+package io.young.dev.selenium.srp.result;
 
+import io.young.dev.selenium.srp.common.SearchSuggestion;
+import io.young.dev.selenium.srp.common.SearchWidget;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 

@@ -1,5 +1,6 @@
-package io.young.dev.selenium.srp;
+package io.young.dev.selenium.srp.result;
 
+import io.young.dev.selenium.srp.common.AbstractComponent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,10 +10,10 @@ public class NavigationBar extends AbstractComponent {
     @FindBy(id = "hdtb")
     private WebElement bar;
 
-    @FindBy(linkText = "Images")
+    @FindBy(linkText = "이미지")
     private WebElement images;
 
-    @FindBy(linkText = "News")
+    @FindBy(linkText = "뉴스")
     private WebElement news;
 
     public NavigationBar(WebDriver driver) {
