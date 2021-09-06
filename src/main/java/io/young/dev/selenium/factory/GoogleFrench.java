@@ -15,7 +15,7 @@ public class GoogleFrench extends GoogleEnglish {
 
     @Override
     public void launchSite() {
-        this.driver.get("https://www.google.fr");
+        this.driver.get("https://www.google.com/?hl=fr");
         this.language.click();
     }
 
