@@ -1,9 +1,6 @@
 package io.young.dev.selenium.test.strategy;
 
-import com.google.common.util.concurrent.Uninterruptibles;
-import io.young.dev.selenium.strategy.CreditCard;
-import io.young.dev.selenium.strategy.NetBanking;
-import io.young.dev.selenium.strategy.PaymentOption;
+import io.young.dev.selenium.strategy.PaymentOptionFactory;
 import io.young.dev.selenium.strategy.PaymentScreen;
 import io.young.dev.selenium.test.BaseTest;
 import org.testng.annotations.BeforeTest;
@@ -12,7 +9,6 @@ import org.testng.annotations.Test;
 import org.testng.collections.Maps;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class PaymentScreenTest extends BaseTest {
 
@@ -24,10 +20,10 @@ public class PaymentScreenTest extends BaseTest {
     }
 
     @Test(dataProvider = "getData")
-    public void paymentTest(PaymentOption paymentOption, Map<String, String> paymentDetails) {
+    public void paymentTest(String option, Map<String, String> paymentDetails) {
         this.paymentScreen.goTo();
         this.paymentScreen.getUserInformation().enterDetails("lucas", "jeon", "lucas@gmail.com");
-        this.paymentScreen.setPaymentOption(paymentOption);
+        this.paymentScreen.setPaymentOption(PaymentOptionFactory.get(option));
         this.paymentScreen.pay(paymentDetails);
         String orderNumber = this.paymentScreen.getOrder().placeOrder();
 
@@ -47,8 +43,8 @@ public class PaymentScreenTest extends BaseTest {
         nb.put("pin", "999");
 
         return new Object[][] {
-                { new CreditCard(), cc },
-                { new NetBanking(), nb }
+                { "CC", cc },
+                { "NB", nb }
         };
     }
 }
