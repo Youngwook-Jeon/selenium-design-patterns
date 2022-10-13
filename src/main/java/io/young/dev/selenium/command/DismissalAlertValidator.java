@@ -13,9 +13,14 @@ public class DismissalAlertValidator extends ElementValidator {
 
     @Override
     public boolean validate() {
-        boolean result1 = this.dismissalAlert.isDisplayed(); // true
+        boolean result1 = this.dismissalAlert.isDisplayed(); //true
         this.dismissalAlert.findElement(By.cssSelector("button.close")).click();
-        boolean result2 = this.dismissalAlert.isDisplayed(); // false
+        boolean result2 = false;
+        try{
+            result2 = this.dismissalAlert.isDisplayed(); //false;
+        }catch(Exception e){
+            //skip
+        }
         return result1 && (!result2);
     }
 }

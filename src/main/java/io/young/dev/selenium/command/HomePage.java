@@ -4,10 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class HomePage {
 
     private final WebDriver driver;
+    private final WebDriverWait wait;
 
     // buttons
     @FindBy(css = "div.button-box button.btn-info")
@@ -36,24 +41,40 @@ public class HomePage {
     private WebElement dangerAlert;
 
     // dismissal alerts
-    @FindBy(css = "div.alert-info")
+    @FindBy(css = "#main-wrapper > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div.alert-info")
     private WebElement dismissInfoAlert;
 
-    @FindBy(css = "div.alert-success")
+    @FindBy(css = "#main-wrapper > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div.alert-success")
     private WebElement dismissSuccessAlert;
 
-    @FindBy(css = "div.alert-danger")
+    @FindBy(css = "#main-wrapper > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div.alert-danger")
     private WebElement dismissDangerAlert;
 
-    @FindBy(css = "div.alert-warning")
-    private WebElement dismissWarningAlert;
+    @FindBy(css = "#main-wrapper > div > div > div:nth-child(3) > div > div > div > div > div:nth-child(2) > div.alert-warning")
+    private WebElement dismissWarnAlert;
 
     public HomePage(final WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, 30);
         PageFactory.initElements(driver, this);
     }
 
     public void goTo() {
         this.driver.get("https://vins-udemy.s3.amazonaws.com/ds/admin-template/admin-template.html");
+        this.wait.until((d) -> this.infoBtn.isDisplayed());
+    }
+
+    public List<ElementValidator> getElementValidators() {
+        return Arrays.asList(
+                new NotificationValidator(infoBtn, infoAlert),
+                new NotificationValidator(successBtn, successAlert),
+                new NotificationValidator(warnBtn, warnAlert),
+                new NotificationValidator(dangerBtn, dangerAlert),
+
+                new DismissalAlertValidator(dismissInfoAlert),
+                new DismissalAlertValidator(dismissSuccessAlert),
+                new DismissalAlertValidator(dismissWarnAlert),
+                new DismissalAlertValidator(dismissDangerAlert)
+        );
     }
 }
